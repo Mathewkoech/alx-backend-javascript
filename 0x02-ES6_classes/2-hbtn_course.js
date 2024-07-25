@@ -1,58 +1,74 @@
-class HolbertonCourse {
+/**
+ * Represents a Holberton Course.
+ */
+export default class HolbertonCourse {
+  /**
+   * Creates a new @see {@link HolbertonCourse}.
+   *
+   * @param {String} name - The name of the course.
+   * @param {Number} length - How long the course is (in months).
+   * @param {String[]} students - The names of students in the course.
+   */
   constructor(name, length, students) {
-    this._name = this._validateName(name);
-    this._length = this._validateLength(length);
-    this._students = this._validateStudents(students);
+    this.name = name;
+    this.length = length;
+    this.students = students;
   }
 
-  // Getter and Setter for name
+  /**
+   * Gets the name of this course.
+   */
   get name() {
     return this._name;
   }
 
+  /**
+   * sets the name of this course.
+   */
+
   set name(value) {
-    this._name = this._validateName(value);
+    if (typeof value !== 'string') {
+      throw new TypeError('Name must be a string');
+    }
+    this._name = value;
   }
 
-  // Getter and Setter for length
+  /**
+   * Gets the length of this course in months.
+   */
   get length() {
     return this._length;
   }
 
+  /**
+   * sets the length of this course in months.
+   */
+
   set length(value) {
-    this._length = this._validateLength(value);
+    if (typeof value !== 'number') {
+      throw new TypeError('Length must be a number');
+    }
+    this._length = value;
   }
 
-  // Getter and Setter for students
+  /**
+   * Gets the students names of this course.
+   */
   get students() {
     return this._students;
   }
 
+  /**
+   * sets the students names of this course.
+   */
+
   set students(value) {
-    this._students = this._validateStudents(value);
-  }
-
-  // Validation methods
-  _validateName(value) {
-    if (typeof value !== 'string') {
-      throw new TypeError('Name must be a string');
-    }
-    return value;
-  }
-
-  _validateLength(value) {
-    if (typeof value !== 'number') {
-      throw new TypeError('Length must be a number');
-    }
-    return value;
-  }
-
-  _validateStudents(value) {
-    if (!Array.isArray(value) || !value.every(student => typeof student === 'string')) {
+    if (!(value instanceof Array)) {
       throw new TypeError('Students must be an array of strings');
     }
-    return value;
+    if (!value.every((student) => typeof student === 'string')) {
+      throw new TypeError('Students must be an array of strings');
+    }
+    this._students = value;
   }
 }
-
-export default HolbertonCourse;
