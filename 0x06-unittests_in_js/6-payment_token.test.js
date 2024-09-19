@@ -12,10 +12,11 @@ describe('getPaymentTokenFromAPI', () => {
     });
 
     it('should return a failed response from the API', (done) => {
-        getPaymentTokenFromAPI(false).then((response) => {
+        getPaymentTokenFromAPI(false).then(() => {
             done(new Error('Expected API call to fail'));
         }).catch((err) => {
-            expect(err.message).to.equal('Failed response from the API');
+            // Check for the correct rejection value
+            expect(err).to.deep.equal({ data: 'Error response from the API' });
             done();
         });
     });
